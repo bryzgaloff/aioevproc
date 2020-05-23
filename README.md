@@ -211,3 +211,7 @@ Let's sum up on [conditions](#how-to-use-the-handlers-conditions):
 ## Installation
 
 `pip install aioevproc`
+
+## How to run tests
+
+From project root directory: `python -m unittest discover -s tests/unit`
