@@ -5,7 +5,7 @@ with open('README.md') as readme_file:
 
 setuptools.setup(
     name='aioevproc',
-    version='0.0.1',
+    version='0.1.0',
     author='Anton Bryzgalov',
     author_email='tony.bryzgaloff@gmail.com',
     description='Minimal async/sync event processing framework on pure Python',

@@ -86,5 +86,5 @@ class EventsProcessor:
                     middlewares_stack.enter_context(ret_val)
                 else:  # handler_method is just a synchronous method
                     call_next_handlers = ret_val
-                if call_next_handlers is not True:
+                if not call_next_handlers:
                     break

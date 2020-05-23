@@ -215,9 +215,9 @@ class PredicatesDisjunctionTestCase(_AioEvProcTestCase):
         handler_mock.assert_not_called()
 
 
-class HandlerReturnsTrueTestCase(_AioEvProcTestCase):
+class HandlerReturnsTruthyValueTestCase(_AioEvProcTestCase):
     @staticmethod
-    def test():
+    def test_true():
         class TestEventsProcessor(EventsProcessor):
             @handler()
             def handler_returns_true(self, _: Event) -> Literal[True]:
@@ -235,8 +235,27 @@ class HandlerReturnsTrueTestCase(_AioEvProcTestCase):
         asyncio.get_event_loop().run_until_complete(processor.process_event({}))
         second_handler_mock.assert_called_once()
 
+    @staticmethod
+    def test_truthy_value():
+        class TestEventsProcessor(EventsProcessor):
+            @handler()
+            def handler_returns_true(self, _: Event) -> str:
+                first_handler_mock()
+                return 'abc'  # not false
 
-class HandlerReturnsNonTrueTestCase(_AioEvProcTestCase):
+            @handler()
+            def second_handler(self, _: Event) -> None:
+                first_handler_mock.assert_called_once()
+                second_handler_mock()
+
+        first_handler_mock = unittest.mock.Mock()
+        second_handler_mock = unittest.mock.Mock()
+        processor = TestEventsProcessor()
+        asyncio.get_event_loop().run_until_complete(processor.process_event({}))
+        second_handler_mock.assert_called_once()
+
+
+class HandlerReturnsFalsyValueTestCase(_AioEvProcTestCase):
     @staticmethod
     def test_none():
         class TestEventsProcessor(EventsProcessor):

@@ -1,7 +1,7 @@
 # aioevproc
 
-It is a minimal async/sync event processing framework. Has no dependencies and
-    uses nothing except pure Python 3.8.
+It is a minimal async/sync event processing framework. Has **no dependencies**
+    and uses nothing except **pure Python 3.8**.
 
 _TL;DR_ Do not have much time? See [recap on examples](#recap-on-examples) and
     [recap on conditions](#recap-on-conditions). Now go and use `aioevproc`! :)
@@ -82,14 +82,14 @@ All of the handlers are called in the same order as they are declared in the
     class body. Middlewares follow the same rule: they are entered in the order
     of declaration and exited in the reversed order (in a recursive manner).
 
-Sync and async handlers may return a value: if it `is not True` then none of the
-    following handlers will be called and event processing will be stopped at
-    the handler which **did not** `return True`. Please notice:
-* The value should be exactly `is True`, _not just a truthy value_.
-* If you return nothing from the sync/async handler method (means you implicitly
-    `return None`) then none of the following handlers will be called. This is
-    an intended default behavior since usually an event requires a single
-    handler.
+Sync and async handlers may return a value: if it is not a truthy value then
+    none of the following handlers will be called and event processing will be
+    stopped at the handler which **did not** return truthy value.
+
+Please notice: if you return nothing from the sync/async handler method (means
+    you implicitly `return None`) then none of the following handlers will be
+    called. This is an intended default behavior since usually an event requires
+    a single handler. None is a falsy (not truthy) value.
 
 Returning `True` from the handler is useful for logging purposes: the logging
     method should not block further processing of the event. This is shown in
@@ -107,7 +107,7 @@ Middlewares are based on context managers and are intended to be used for
 Let's sum up on the [examples](#examples):
 1. `aioevproc` supports both sync and async handlers and middlewares.
 2. Every handler or middleware has to be a method of `EventsProcessor` subclass.
-3. If the handler does not return exactly `True` then the following handlers are
+3. If the handler does not return a truthy value then the following handlers are
     not called.
 4. Middlewares are sync/async context managers.
 5. Handlers and middlewares are called in the same order as they are declared.
