@@ -6,6 +6,8 @@ It is a minimal async/sync event processing framework. Has **no dependencies**
 _TL;DR_ Do not have much time? See [recap on examples](#recap-on-examples) and
     [recap on conditions](#recap-on-conditions). Now go and use `aioevproc`! :)
 
+The package name stands for **A**sync**IO** **Ev**ents **Proc**essing.
+
 ## Examples
 
 Simplest example for a single async handler, just echo the message text:
